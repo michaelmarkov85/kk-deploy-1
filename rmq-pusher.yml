@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rmq-pusher
+spec:
+  selector:
+    matchLabels:
+      app: rmq-pusher
+  replicas: 1
+  template: # template for the pods
+    metadata:
+      labels:
+        app: rmq-pusher
+    spec:
+      containers:
+      - name: rmq-pusher
+        image: michaelmarkov85/rmq-pusher:v4

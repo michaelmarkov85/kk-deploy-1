@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rmq-aggregator
+spec:
+  selector:
+    matchLabels:
+      app: rmq-aggregator
+  replicas: 1
+  template: # template for the pods
+    metadata:
+      labels:
+        app: rmq-aggregator
+    spec:
+      containers:
+      - name: rmq-aggregator
+        image: michaelmarkov85/rmq-aggregator:v1.5
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Development"

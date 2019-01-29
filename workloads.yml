@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-api
+spec:
+  selector:
+    matchLabels:
+      app: admin-api
+  replicas: 1
+  template: # template for the pods
+    metadata:
+      labels:
+        app: admin-api
+    spec:
+      containers:
+      - name: admin-api
+        image: michaelmarkov85/admin-api:v1.2
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Development"

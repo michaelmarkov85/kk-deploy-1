@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rmq-aggregator
+
+spec:
+  # This defines which pods are going to be represented by this Service
+  # The service becomes a network endpoint for either other services
+  # or maybe external users to connect to (eg browser)
+  selector:
+    app: rmq-aggregator
+
+  ports:
+    - name: http
+      port: 8000
+      nodePort: 30070
+
+  type: NodePort
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: admin-api
+
+spec:
+  # This defines which pods are going to be represented by this Service
+  # The service becomes a network endpoint for either other services
+  # or maybe external users to connect to (eg browser)
+  selector:
+    app: admin-api
+
+  ports:
+    - name: http
+      port: 5000
+      nodePort: 30050
+
+  type: NodePort
+

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq
+spec:
+  selector:
+    matchLabels:
+      app: rabbitmq
+  replicas: 1
+  template: # template for the pods
+    metadata:
+      labels:
+        app: rabbitmq
+    spec:
+      containers:
+      - name: rabbitmq
+        image: rabbitmq:3.7.8-management
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq
+
+spec:
+  # This defines which pods are going to be represented by this Service
+  # The service becomes a network endpoint for either other services
+  # or maybe external users to connect to (eg browser)
+  selector:
+    app: rabbitmq
+
+  ports:
+    - name: http
+      port: 15672
+      nodePort: 30080
+    - name: push
+      port: 5672
+      nodePort: 30081
+
+  type: NodePort
